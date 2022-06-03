@@ -1,28 +1,29 @@
-import { useState } from "react";
+// import { useState, useEffect} from "react";
+import PreLoaded from '../json/preloaded.json'
+import '../css/preLoadedRecipe.css'
 
 export default function PreLoadedCards() {
 
   return (
-    <div>
-      <ul id = "RecipeCards">
-        <li id="PreloadedRecipeCard">
-        {/* <script type = "text/javascript">
-          fetch("../preloaded.json")
-            .then(response => response.json())
-            .then(function(data) {
-                document.getElementById("PreloadedRecipeCard").innerHTML += 
-                "RecipeTitle: " + data.RecipeTitle + "<br />" +
-                "Ingredients: "  +  data.Ingredients + "<br />" +
-                "Instructions: " +  data.Instructions + "<br />" +
-                "EstimatedCookingTime(mins): " + data.EstimatedCookingTime + "<br />";
-            })
-            .catch(function(err) {
-              console.log(err)
-            });
-        </script> */}
-        </li>
-        </ul>
-      <button type = "button" id = "clearRecipeCards">Clear All</button>
-      </div>
+    <div className="PreloadedRecipeCard">
+      <span style={{color: "forestgreen",fontSize:50}} id = "CurrentRecipe"> <b>Current Recipe</b> </span>
+      
+     {
+      PreLoaded && PreLoaded.map(preLoaded => {
+        return(
+          <div className="PreloadedRecipeCardDiv" key = {preLoaded.RecipeTitle}>
+            <ul id = "RecipeCards">
+            <li id="PreloadedRecipeCard">
+            {"RecipeTitle: " + preLoaded.RecipeTitle} <br />
+            {"Ingredients: " + preLoaded.Ingredients} <br />
+            {"Instructions: " + preLoaded.Instructions} <br />
+            {"EstimatedCookingTime(mins): " + preLoaded.EstimatedCookingTime} <br />
+            </li>
+            </ul>
+          </div>
+        )
+      })
+     }
+    </div>
   );
 }

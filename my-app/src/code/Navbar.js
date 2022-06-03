@@ -5,8 +5,8 @@ export default function Navbar() {
   return (
     <header>
         
-        <h1 class = "logo"> RecipeMaster</h1>
-        <input type="checkbox" id = "nav-toggle" class = "nav-toggle"/>
+        <h1 className = "logo"> RecipeMaster</h1>
+        <input type="checkbox" id = "nav-toggle" className = "nav-toggle"/>
         <nav id = "navbar">
             <ul id = "navbarList">
                 <li><a href = "recipeWebsite.html">Home </a></li>
@@ -16,7 +16,7 @@ export default function Navbar() {
                 <li><a href = "recipeWebsite.html">Join Us </a></li>
             </ul>
         </nav>
-        <label for = "nav-toggle" class = "nav-toggle-label">
+        <label htmlFor = "nav-toggle" className = "nav-toggle-label">
           <span></span>
         </label>
     </header>
