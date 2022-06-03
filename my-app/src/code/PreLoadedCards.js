@@ -20,6 +20,9 @@ export default function PreLoadedCards() {
             {"EstimatedCookingTime(mins): " + preLoaded.EstimatedCookingTime} <br />
             </li>
             </ul>
+            <div>
+              <button type = "button" id = "clearRecipeCards">Clear All</button>
+            </div>
           </div>
         )
       })
