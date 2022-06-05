@@ -2,35 +2,18 @@ import "../css/form.css"
 import React,{useState,useRef} from "react";
 import AddedRecipe from './AddedRecipe'
 import CurrentRecipe from "./CurrentRecipe";
+import {useSelector, useDispatch} from 'react-redux';
+import { increment } from '../actions/index.js'
+
 
 export default function Form() {
-  const [recipeCards,setRecipeCards] = useState([]);
-  const recipeTitleRef = useRef();
-  const ingredientsRef = useRef();
-  const instructionsRef = useRef();
-  const cookingTimeRef = useRef();
+    const count = useSelector(state => state.buttonCount);
+    const dispatch = useDispatch();
 
-
-  function handleAddRecipe(event) {
-    const recipeTitle = recipeTitleRef.current.value;
-    const recipeIngredients = ingredientsRef.current.value;
-    const recipeInstructions = instructionsRef.current.value;
-    const recipeCookingTime = cookingTimeRef.current.value;
-    if(recipeTitle === '' || recipeIngredients==='' || recipeInstructions==='') return;
-
-    // setRecipeCards(prevRecipeCards => {
-    //   return [...prevRecipeCards, {id: 1, recipeTitle:recipeTitle, recipeIngredients: recipeIngredients,
-    //   recipeInstructions: recipeIngredients, recipeCookingTime: recipeCookingTime}]
-    // })
-    console.log(recipeTitle);
-    AddedRecipe(recipeTitle,recipeIngredients,recipeInstructions,recipeCookingTime);
-    <AddedRecipe title = {recipeTitle} ingredient={recipeIngredients} instruction={recipeInstructions}
-    cookTime={recipeCookingTime}/>
-    // recipeTitleRef.current.value = null;
-    // ingredientsRef.current.value = null;
-    // instructionsRef.current.value = null;
-    // cookingTimeRef.current.value = 1;
-  }
+    const recipeTitleRef = useRef();
+    const ingredientsRef = useRef();
+    const instructionsRef = useRef();
+    const cookingTimeRef = useRef();
 
   return (
     <div id="container-div">
@@ -56,7 +39,8 @@ export default function Form() {
           <input ref={cookingTimeRef} type="number" name = "Estimated cooking time(mins)" id = "CookingTime"  min="1" max ="1440"/>
           </div>
           <div>
-          <button type="button" id="addRecipe" onClick={handleAddRecipe}>Submit</button>
+          <h1>I want {count} scoops of ice cream!</h1>
+          <button onClick={() => dispatch(increment(1))}>Submit</button>
           <button type="reset" id="resetRecipe">Clear All</button>
           </div>
         </form>
