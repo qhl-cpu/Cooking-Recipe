@@ -6,7 +6,7 @@ export default function PreLoadedCards() {
 
   return (
     <div className="PreloadedRecipeCard">
-      <span style={{color: "forestgreen",fontSize:50}} id = "CurrentRecipe"> <b>Current Recipe</b> </span>
+      <span style={{color: "forestgreen",fontSize:50}} id = "CurrentRecipeSpan"> <b>Current Recipe</b> </span>
       
      {
       PreLoaded && PreLoaded.map(preLoaded => {

@@ -1,15 +1,19 @@
 import React from 'react'
 import RecipeCard from './RecipeCard';
+import "../css/addedRecipe.css"
 
-export default function AddedRecipe({title,ingredient,instruction,cookTime}) {
+export default function AddedRecipe({recipe}) {
+    if (recipe.title === '') {
+      return;
+    }
     return (
       <div className="addedRecipeCardDiv">
             <ul id = "RecipeCards">
             <li id="addedRecipeCard">
-            {"RecipeTitle: " + title} <br />
-            {"Ingredients: " + ingredient} <br />
-            {"Instructions: " + instruction} <br />
-            {"EstimatedCookingTime(mins): " + cookTime} <br />
+            {"RecipeTitle: " + recipe.title} <br />
+            {"Ingredients: " + recipe.ingredient} <br />
+            {"Instructions: " + recipe.instruction} <br />
+            {"EstimatedCookingTime(mins): " + recipe.cookingTime} <br />
             </li>
             </ul>
           </div>

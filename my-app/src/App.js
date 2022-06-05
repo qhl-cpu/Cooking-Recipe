@@ -12,7 +12,7 @@ function App() {
       <Head />
       <Navbar />
       <Form />
-      <CurrentRecipe />
+      {/* <CurrentRecipe /> */}
     </div>
   );
 }

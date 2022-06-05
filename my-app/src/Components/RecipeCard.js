@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function RecipeCard({card}) {
+export default function RecipeCard({recipe}) {
   return (
     <div>
-        {card.name}
+        <span>{recipe.title}</span>
+        <button>Toggle</button>
+        <button>Delete</button>
     </div>
   )
 }

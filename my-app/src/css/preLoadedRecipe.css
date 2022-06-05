@@ -1,4 +1,4 @@
-#CurrentRecipe{
+#CurrentRecipeSpan{
     display:flex;
     justify-content: center;
   }
@@ -12,10 +12,9 @@
     border: 1px solid green;
     padding: 10px;
     font-size: 20px;
-    min-width: 40%;
+    min-width: 54%;
     margin:auto;
-  }
-  
+  }  
   #addRecipe{
     left: 70%;
     width:100px;
