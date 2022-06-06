@@ -43,11 +43,10 @@ export default function Form() {
 
     function handleSubmit(e) {
       e.preventDefault()
-      dispatch({type: ACTIONS.ADD_RECIPE, payload: {title: title,ingredient:ingredient,
-        instruction:instruction,cookingTime:cookingTime}})
+      dispatch({type: ACTIONS.ADD_RECIPE, payload: { title: title,ingredient:ingredient,
+        instruction:instruction,cookingTime:cookingTime }
+      })
     }
-
-    console.log(recipes)
 
   return (
     <div id="container-div">

@@ -11,3 +11,7 @@
     min-width: 54%;
     margin:auto;
   }
+#openRecipeButton {
+  width:100px;
+  height:40px;
+}
