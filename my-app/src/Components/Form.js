@@ -2,6 +2,7 @@ import "../css/form.css"
 import React,{useState,useRef,useReducer} from "react";
 import AddedRecipe from './AddedRecipe'
 import CurrentRecipe from "./CurrentRecipe";
+import PreLoaded from '../json/preloaded.json'
 import {useSelector, useDispatch} from 'react-redux';
 import { increment } from '../actions/index.js'
 import RecipeCard from "./RecipeCard";
@@ -29,7 +30,11 @@ function newRecipe(title,ingredient,instruction,cookingTime) {
 }
 
 export default function Form() {
-    const [recipes,dispatch] = useReducer(reducer,[]);
+  const initialState = [{id: Date.now(),title:PreLoaded[0].RecipeTitle,ingredient:PreLoaded[0].Ingredients,
+    instruction:PreLoaded[0].Instructions,cookingTime:PreLoaded[0].EstimatedCookingTime}]
+
+    const [recipes,dispatch] = useReducer(reducer,initialState);
+    // console.log(recipes)
     const [title,setTitle] = useState('')
     const [ingredient,setIngredient] = useState('')
     const [instruction,setInstruction] = useState('')

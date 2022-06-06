@@ -7,7 +7,7 @@ export default function CurrentRecipe({recipes}) {
   const [cards,setCards] = useState([{id:1,name: 'card1'}]) 
     return (
       <div className="App">
-        <PreLoadedCards />
+        {/* <PreLoadedCards /> */}
         {recipes?.map(recipe => {
           return <AddedRecipe key={recipe.id} recipe={recipe}/>
         })
