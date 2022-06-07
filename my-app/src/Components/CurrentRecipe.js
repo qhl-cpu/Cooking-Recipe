@@ -5,16 +5,18 @@ import React, { useState } from 'react';
 
 export default function CurrentRecipe({ recipes }) {
   const [buttonPopup, setButtonPopup] = useState(false);
+  console.log(recipes)
   return (
     <div className="App">
        <div>
         <button type="button" id="clearRecipeCards">Clear All Recipes</button>
       </div>
       {/* <PreLoadedCards /> */}
-      {recipes?.map(recipe => {
+      {/* {recipes?.map(recipe => {
         return <AddedRecipe key={recipe.id} recipe={recipe} />
       })
-      }
+      } */}
+      <AddedRecipe key={recipes.id} recipe={recipes} />
       {/* <AddedRecipe recipe={recipe}/> */}
 
       

@@ -4,3 +4,13 @@
     padding-top: 110px;
     font-size: 20px;
   }
+
+#preloaded {
+  display:flex;
+  justify-content: center;
+  border: 1px solid green;
+  padding: 10px;
+  font-size: 20px;
+  min-width: 54%;
+  margin:auto;
+}
