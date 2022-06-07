@@ -1,5 +1,5 @@
 import "../css/form.css"
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AddedRecipe from './AddedRecipe'
 import PreLoaded from '../json/preloaded.json'
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,16 +29,18 @@ export default function Form() {
 
   useEffect(() => {
     const storedList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if (storedList) 
-    setList(storedList)
+    if (storedList)
+      setList(storedList)
     console.log(storedList)
     console.log(list)
-  },[]);
+  }, []);
 
   useEffect(() => {
-    if(list.length!==0)
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
-  },[list]);
+    if (list.length !== 0)
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
+    if (list.length === 0)
+      localStorage.clear();
+  }, [list]);
 
 
   const recipe = {
@@ -58,11 +60,22 @@ export default function Form() {
   }
 
   function clearAllRecipes() {
-    const newList = list.filter(item=> item.complete);
+    const newList = list.filter(item => item.complete);
     setList(newList);
     localStorage.clear();
   }
 
+  function deleteRecipe(recipe) {
+    const newList = list.filter(item => item.id !== recipe.id);
+    setList(newList);
+    // localStorage.removeItem("recipeWeb.recipes");
+  }
+  
+  function deletePreloadedRecipe(recipe) {
+    const newList = list.filter(item => item.id !== recipe.id);
+    setList(newList);
+    // localStorage.removeItem("recipeWeb.recipes");
+  }
 
   return (
     <div id="container-div">
@@ -98,10 +111,12 @@ export default function Form() {
           </div>
         </form>
       </div>
-      <div id = "clearAllRecipes-div">
-            <button type="button" id="clearAllRecipes"
-            onClick={clearAllRecipes}>Clear All Recipes</button>
+      <div id="clearAllRecipes-div">
+        <button type="button" id="clearAllRecipes"
+          onClick={clearAllRecipes}>Clear All Recipes</button>
       </div>
+      
+      <div id="addedRecipe-div">
       <div>
         <ul id="RecipeCards">
           <li id="preloaded">
@@ -121,9 +136,16 @@ export default function Form() {
         </ul>
 
       </div>
-
+            <p  id="deletePreRecipeButton"></p>
+</div>
       {list.map((item) => {
-        return <AddedRecipe key={item.id} recipe={item} />
+        return (
+          <div key={item.id + 1} id="addedRecipe-div">
+            <AddedRecipe key={item.id} recipe={item} />
+            <button type="button" id="deleteRecipeButton"
+              onClick={() => deleteRecipe(item)}>Delete Recipe</button>
+          </div>);
+
       })}
     </div>
   );

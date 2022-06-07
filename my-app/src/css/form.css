@@ -12,6 +12,7 @@
   padding: 10px;
   font-size: 20px;
   min-width: 54%;
+  max-width: 800px;
   margin:auto;
 }
 #clearAllRecipes-div{
@@ -20,6 +21,20 @@
   padding: 10px;
 }
 #clearAllRecipes {
+  width:100px;
+  height:40px;
+}
+#addedRecipe-div{
+  display:flex;
+  justify-content: center;
+}
+#deletePreRecipeButton{
+  width:0px;
+  height:0px;
+}
+#deleteRecipeButton{
+  margin-left: 10px;
+  margin-top: 20px;
   width:100px;
   height:40px;
 }
