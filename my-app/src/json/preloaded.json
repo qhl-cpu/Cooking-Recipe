@@ -3,12 +3,14 @@
         "RecipeTitle": "scrambled eggs with tomatoes",
         "Ingredients": "2eggs, 1 tomato, salt",
         "Instructions": "fry the tomatoes and then add eggs",
-        "EstimatedCookingTime": 15
+        "EstimatedCookingTime": 15,
+        "complete": false
     },
     {
         "RecipeTitle": "scrambled eggs with tomatoes",
         "Ingredients": "2eggs, 1 tomato, salt",
         "Instructions": "fry the tomatoes and then add eggs",
-        "EstimatedCookingTime": 15
+        "EstimatedCookingTime": 15,
+        "complete": false
     }
 ]

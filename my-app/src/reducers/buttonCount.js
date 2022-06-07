@@ -15,15 +15,6 @@ const buttonCount = (state=initialState, action) => {
 			console.log(action.payload);
 			return <AddedRecipe key={action.payload.id} recipe={action.payload} />
 			
-			// return Object.assign({}, state, {
-			// 	card: state.card?.concat({
-			// 		RecipeTitle: action.title,
-			// 		Ingredients: action.ingredient,
-			// 		Instructions: action.instruction,
-			// 		EstimatedCookingTime: action.cookingTime
-			// 	})
-			//   })
-            //return [...state.card,action.payload];
 		default:
 			return <></>;
 	}

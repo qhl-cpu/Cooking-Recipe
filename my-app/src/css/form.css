@@ -14,3 +14,12 @@
   min-width: 54%;
   margin:auto;
 }
+#clearAllRecipes-div{
+  display:flex;
+  justify-content: center;
+  padding: 10px;
+}
+#clearAllRecipes {
+  width:100px;
+  height:40px;
+}

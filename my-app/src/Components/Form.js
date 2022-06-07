@@ -1,5 +1,5 @@
 import "../css/form.css"
-import React, { useState} from "react";
+import React, { useState,useEffect } from "react";
 import AddedRecipe from './AddedRecipe'
 import PreLoaded from '../json/preloaded.json'
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,9 +25,26 @@ export default function Form() {
   const [list, setList] = React.useState([]);
   const [buttonPopup, setButtonPopup] = useState(false);
 
+  const LOCAL_STORAGE_KEY = "recipeWeb.recipes"
+
+  useEffect(() => {
+    const storedList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storedList) 
+    setList(storedList)
+    console.log(storedList)
+    console.log(list)
+  },[]);
+
+  useEffect(() => {
+    if(list.length!==0)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
+  },[list]);
+
+
   const recipe = {
     id: Date.now(), title: PreLoaded[0].RecipeTitle, ingredient: PreLoaded[0].Ingredients,
-    instruction: PreLoaded[0].Instructions, cookingTime: PreLoaded[0].EstimatedCookingTime
+    instruction: PreLoaded[0].Instructions, cookingTime: PreLoaded[0].EstimatedCookingTime,
+    complete: PreLoaded[0].complete
   }
 
   function handleSubmit(e) {
@@ -39,6 +56,13 @@ export default function Form() {
     });
     setList(newList);
   }
+
+  function clearAllRecipes() {
+    const newList = list.filter(item=> item.complete);
+    setList(newList);
+    localStorage.clear();
+  }
+
 
   return (
     <div id="container-div">
@@ -74,6 +98,10 @@ export default function Form() {
           </div>
         </form>
       </div>
+      <div id = "clearAllRecipes-div">
+            <button type="button" id="clearAllRecipes"
+            onClick={clearAllRecipes}>Clear All Recipes</button>
+      </div>
       <div>
         <ul id="RecipeCards">
           <li id="preloaded">
@@ -91,12 +119,12 @@ export default function Form() {
             </div>
           </li>
         </ul>
-        
+
       </div>
-      
+
       {list.map((item) => {
-            return <AddedRecipe key={item.id} recipe={item} />
-          })}
+        return <AddedRecipe key={item.id} recipe={item} />
+      })}
     </div>
   );
 }
