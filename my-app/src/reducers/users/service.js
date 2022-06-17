@@ -23,13 +23,13 @@ const getUsers = async () => {
   return response.json();
 };
 
-const deleteUsers = async (recipeCard) => {
-  const response = await fetch('http://localhost:3001/users', {
+const deleteUsers = async (id) => {
+  const response = await fetch('http://localhost:3001/users/'+JSON.stringify(id).replaceAll("\"", ""), {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(recipeCard)
+    body: JSON.stringify(id)
   });
 
   const data = await response.json();

@@ -2,7 +2,6 @@ import "../css/form.css"
 import React, { useState, useEffect } from "react";
 import AddedRecipe from './AddedRecipe'
 import { useSelector, useDispatch } from 'react-redux';
-import RecipePopUp from './RecipePopUp';
 import { addUserAsync, getUsersAsync,deleteUserAsync } from '../reducers/users/thunks';
 
 function newRecipe(title, ingredient, instruction, cookingTime) {
@@ -11,7 +10,6 @@ function newRecipe(title, ingredient, instruction, cookingTime) {
     instruction: instruction, cookingTime: cookingTime, complete: false
   }
 }
-
 export default function Form() {
   const dispatch = useDispatch()
 
@@ -22,7 +20,6 @@ export default function Form() {
   const [cookingTime, setCookingTime] = useState(1)
 
   const [list, setList] = React.useState([]);
-  const [buttonPopup, setButtonPopup] = useState(false);
 
   // const LOCAL_STORAGE_KEY = "recipeWeb.recipes"
 
@@ -32,6 +29,9 @@ export default function Form() {
     dispatch(getUsersAsync());
   }, []);
 
+  useEffect(() => {
+    dispatch(deleteUserAsync());
+  }, [users]);
   // useEffect(() => {
   //   const storedList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
   //   if (storedList)
@@ -49,18 +49,6 @@ export default function Form() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(addUserAsync({ title, ingredient, instruction, cookingTime }));
-    setTitle('');
-    setIngredient('');
-    setInstruction('');
-    setCookingTime('1');
-    // e.target.reset();
-    // dispatch(increment(newRecipe(title, ingredient, instruction, cookingTime)))
-    // const newList = list.concat({
-    //   id: Date.now(), title: title, ingredient: ingredient,
-    //   instruction: instruction, cookingTime: cookingTime
-    // });
-    //setList(newList);
-
   }
 
   function clearAllRecipes() {
@@ -70,17 +58,11 @@ export default function Form() {
   }
 
   function deleteRecipe(recipe) {
-    // const newList = list.filter(item => item.id !== recipe.id);
-    // setList(newList);
-    // setID(recipe.id)
-    // setTitle(recipe.RecipeTitle);
-    // setIngredient(recipe.Ingredients);
-    // setInstruction(recipe.Instructions);
-    // setCookingTime(recipe.EstimatedCookingTime);
     const id = recipe.id;
     console.log(id);
     dispatch(deleteUserAsync({id}));
-    // localStorage.removeItem("recipeWeb.recipes");
+    // .then(dispatch(getUsersAsync()));
+    // window.location.reload(false);
   }
 
   function deletePreloadedRecipe(recipe) {

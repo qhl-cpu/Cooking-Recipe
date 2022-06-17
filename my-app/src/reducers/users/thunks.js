@@ -19,7 +19,11 @@ export const addUserAsync = createAsyncThunk(
 
 export const deleteUserAsync = createAsyncThunk(
   actionTypes.DELETE_USER,
-  async (id) => {
+  // async (id) => {
+  //   return await fetch(
+  //     'localhost:3001/users/' + JSON.stringify(id.id).replaceAll("\"", ""));
+  // }
+  async ({id}) => {
     return await UserService.deleteUsers(
       {id});
   }

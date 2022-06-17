@@ -30,13 +30,14 @@ router.post('/', function (req, res, next) {
 });
 
 router.delete('/:id', function (req, res) {
-  const { id } = req.params;
+  // const { id } = req.params;
+  const id = JSON.stringify(req.body.id).replaceAll("\"", "")
   console.log(JSON.stringify(users))
   const deleted = users.find(user => user.id === id);
   if(deleted) {
     console.log(deleted)
     users = users.filter(user => user.id !== id);
-    return res.status(200).json(deleted)
+    return res.send(users);
   }
   else {
     console.log(deleted)
