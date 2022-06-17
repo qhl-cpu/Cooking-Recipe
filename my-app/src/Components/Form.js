@@ -14,7 +14,6 @@ function newRecipe(title, ingredient, instruction, cookingTime) {
 }
 
 export default function Form() {
-  const count = useSelector(state => state.buttonCount);
   const dispatch = useDispatch()
 
   const [title, setTitle] = useState('')
@@ -51,12 +50,21 @@ export default function Form() {
 
   function handleSubmit(e) {
     e.preventDefault()
+    console.log(title)
     dispatch(increment(newRecipe(title, ingredient, instruction, cookingTime)))
     const newList = list.concat({
       id: Date.now(), title: title, ingredient: ingredient,
       instruction: instruction, cookingTime: cookingTime
     });
     setList(newList);
+    // axios.post('https://jsonplaceholder.typicode.com/posts', {title:title,
+    // ingredient:ingredient,instruction:instruction,cookingTime:cookingTime})
+    // .then(response => {
+    //   console.log(response)
+    // })
+    // .catch(error => {
+    //   console.log(error)
+    // })
   }
 
   function clearAllRecipes() {
