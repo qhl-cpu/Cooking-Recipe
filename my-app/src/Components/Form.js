@@ -1,12 +1,9 @@
 import "../css/form.css"
 import React, { useState, useEffect } from "react";
 import AddedRecipe from './AddedRecipe'
-import PreLoaded from '../json/preloaded.json'
 import { useSelector, useDispatch } from 'react-redux';
-import { increment } from '../actions/index.js'
 import RecipePopUp from './RecipePopUp';
-import { addUserAsync } from '../reducers/users/thunks';
-import axios from 'axios';
+import { addUserAsync, getUsersAsync } from '../reducers/users/thunks';
 
 function newRecipe(title, ingredient, instruction, cookingTime) {
   return {
@@ -26,67 +23,49 @@ export default function Form() {
   const [list, setList] = React.useState([]);
   const [buttonPopup, setButtonPopup] = useState(false);
 
-  const LOCAL_STORAGE_KEY = "recipeWeb.recipes"
+  // const LOCAL_STORAGE_KEY = "recipeWeb.recipes"
+
+  const users = useSelector(state => state.users.list);
 
   useEffect(() => {
-    const storedList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if (storedList)
-      setList(storedList)
-    console.log(storedList)
-    console.log(list)
+    dispatch(getUsersAsync());
   }, []);
 
-  useEffect(() => {
-    if (list.length !== 0)
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
-    if (list.length === 0)
-      localStorage.clear();
-  }, [list]);
+  // useEffect(() => {
+  //   const storedList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+  //   if (storedList)
+  //     setList(storedList)
+  // }, []);
 
+  // useEffect(() => {
+  //   if (list.length !== 0)
+  //     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
+  //   if (list.length === 0)
+  //     localStorage.clear();
+  // }, [list]);
 
-  const recipe = {
-    id: Date.now(), title: PreLoaded[0].RecipeTitle, ingredient: PreLoaded[0].Ingredients,
-    instruction: PreLoaded[0].Instructions, cookingTime: PreLoaded[0].EstimatedCookingTime,
-    complete: PreLoaded[0].complete
-  }
-
-  const axios = require('axios').default;
 
   function handleSubmit(e) {
-    e.preventDefault()
-    console.log(cookingTime)
+    e.preventDefault();
+    dispatch(addUserAsync({ title, ingredient, instruction, cookingTime }));
+    setTitle('');
+    setIngredient('');
+    setInstruction('');
+    setCookingTime('1');
+    e.target.reset();
     // dispatch(increment(newRecipe(title, ingredient, instruction, cookingTime)))
-    const newList = list.concat({
-      id: Date.now(), title: title, ingredient: ingredient,
-      instruction: instruction, cookingTime: cookingTime
-    });
-    // axios.post('/users', {
-    //   firstName: 'Fred',
-    //   lastName: 'Flintstone'
-    // })
-    // .then(function (response) {
-    //   console.log(response);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
+    // const newList = list.concat({
+    //   id: Date.now(), title: title, ingredient: ingredient,
+    //   instruction: instruction, cookingTime: cookingTime
     // });
+    //setList(newList);
 
-    dispatch(addUserAsync({title,ingredient,instruction,cookingTime}))
-    setList(newList);
-    // axios.post('https://jsonplaceholder.typicode.com/posts', {title:title,
-    // ingredient:ingredient,instruction:instruction,cookingTime:cookingTime})
-    // .then(response => {
-    //   console.log(response)
-    // })
-    // .catch(error => {
-    //   console.log(error)
-    // })
   }
 
   function clearAllRecipes() {
     const newList = list.filter(item => item.complete);
     setList(newList);
-    localStorage.clear();
+    //localStorage.clear();
   }
 
   function deleteRecipe(recipe) {
@@ -94,7 +73,7 @@ export default function Form() {
     setList(newList);
     // localStorage.removeItem("recipeWeb.recipes");
   }
-  
+
   function deletePreloadedRecipe(recipe) {
     const newList = list.filter(item => item.id !== recipe.id);
     setList(newList);
@@ -108,7 +87,7 @@ export default function Form() {
         <form id="recipeForm" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="RecipeTitle">Recipe title</label>
-            <input onChange={e => setTitle(e.target.value)}
+            <input onChange={(e) => setTitle(e.target.value)}
               type="text" name="Recipe Title" id="RecipeTitle" placeholder="title goes here" required />
           </div>
 
@@ -139,38 +118,17 @@ export default function Form() {
         <button type="button" id="clearAllRecipes"
           onClick={clearAllRecipes}>Clear All Recipes</button>
       </div>
-      
-      <div id="addedRecipe-div">
-      <div>
-        <ul id="RecipeCards">
-          <li id="preloaded">
-            {"RecipeTitle: " + recipe.title} <br />
-            {"Ingredients: " + recipe.ingredient} <br />
-            {"Instructions: " + recipe.instruction} <br />
-            {"EstimatedCookingTime(mins): " + recipe.cookingTime} <br />
-            <button type="button" id="openRecipeButton"
-              onClick={() => setButtonPopup(true)}>Open Recipe</button>
 
-            <div>
-              <RecipePopUp trigger={buttonPopup} setTrigger={setButtonPopup}
-                title={recipe.title} instruction={recipe.instruction}>
-              </RecipePopUp>
-            </div>
-          </li>
-        </ul>
-
-      </div>
-            <p  id="deletePreRecipeButton"></p>
-</div>
-      {list.map((item) => {
+      {users.map((user) => {
         return (
-          <div key={item.id + 1} id="addedRecipe-div">
-            <AddedRecipe key={item.id} recipe={item} />
+          <div key={user.id} id="addedRecipe-div">
+            <AddedRecipe key={user.id} recipe={user} />
             <button type="button" id="deleteRecipeButton"
-              onClick={() => deleteRecipe(item)}>Delete Recipe</button>
+              onClick={() => deleteRecipe(user)}>Delete Recipe</button>
           </div>);
 
       })}
+
     </div>
   );
 }

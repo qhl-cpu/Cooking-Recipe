@@ -1,3 +1,8 @@
+#container-div{
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+}
 #form-container{
     display:flex;
     justify-content: center;
@@ -5,16 +10,6 @@
     font-size: 20px;
   }
 
-#preloaded {
-  display:flex;
-  justify-content: center;
-  border: 1px solid green;
-  padding: 10px;
-  font-size: 20px;
-  min-width: 54%;
-  max-width: 800px;
-  margin:auto;
-}
 #clearAllRecipes-div{
   display:flex;
   justify-content: center;
@@ -25,8 +20,11 @@
   height:40px;
 }
 #addedRecipe-div{
+  margin-left: auto;
+  margin-right: auto;
   display:flex;
   justify-content: center;
+  max-width: 50%;
 }
 #deletePreRecipeButton{
   width:0px;

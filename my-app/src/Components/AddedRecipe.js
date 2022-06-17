@@ -5,6 +5,7 @@ import RecipePopUp from './RecipePopUp';
 
 export default function AddedRecipe({ recipe }) {
   const [buttonPopup, setButtonPopup] = useState(false);
+  console.log(JSON.stringify(recipe))
   if (recipe.title === '') {
     return;
   }
@@ -14,10 +15,10 @@ export default function AddedRecipe({ recipe }) {
     <div className="addedRecipeCardDiv">
       <ul id="RecipeCards">
         <li id="addedRecipeCard">
-          {"RecipeTitle: " + recipe.title} <br />
-          {"Ingredients: " + recipe.ingredient} <br />
-          {"Instructions: " + recipe.instruction} <br />
-          {"EstimatedCookingTime(mins): " + recipe.cookingTime} <br />
+          {"RecipeTitle: " + recipe.RecipeTitle} <br />
+          {"Ingredients: " + recipe.Ingredients} <br />
+          {"Instructions: " + recipe.Instructions} <br />
+          {"EstimatedCookingTime(mins): " + recipe.EstimatedCookingTime} <br />
           <button type="button" id="openRecipeButton"
             onClick={() => setButtonPopup(true)}>Open Recipe</button>
             
