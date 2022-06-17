@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import AddedRecipe from './AddedRecipe'
 import { useSelector, useDispatch } from 'react-redux';
 import RecipePopUp from './RecipePopUp';
-import { addUserAsync, getUsersAsync } from '../reducers/users/thunks';
+import { addUserAsync, getUsersAsync,deleteUserAsync } from '../reducers/users/thunks';
 
 function newRecipe(title, ingredient, instruction, cookingTime) {
   return {
@@ -15,6 +15,7 @@ function newRecipe(title, ingredient, instruction, cookingTime) {
 export default function Form() {
   const dispatch = useDispatch()
 
+  const [id, setID] = useState('')
   const [title, setTitle] = useState('')
   const [ingredient, setIngredient] = useState('')
   const [instruction, setInstruction] = useState('')
@@ -52,7 +53,7 @@ export default function Form() {
     setIngredient('');
     setInstruction('');
     setCookingTime('1');
-    e.target.reset();
+    // e.target.reset();
     // dispatch(increment(newRecipe(title, ingredient, instruction, cookingTime)))
     // const newList = list.concat({
     //   id: Date.now(), title: title, ingredient: ingredient,
@@ -69,8 +70,16 @@ export default function Form() {
   }
 
   function deleteRecipe(recipe) {
-    const newList = list.filter(item => item.id !== recipe.id);
-    setList(newList);
+    // const newList = list.filter(item => item.id !== recipe.id);
+    // setList(newList);
+    // setID(recipe.id)
+    // setTitle(recipe.RecipeTitle);
+    // setIngredient(recipe.Ingredients);
+    // setInstruction(recipe.Instructions);
+    // setCookingTime(recipe.EstimatedCookingTime);
+    const id = recipe.id;
+    console.log(id);
+    dispatch(deleteUserAsync({id}));
     // localStorage.removeItem("recipeWeb.recipes");
   }
 

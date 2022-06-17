@@ -16,3 +16,11 @@ export const addUserAsync = createAsyncThunk(
       {title,ingredient,instruction,cookingTime});
   }
 );
+
+export const deleteUserAsync = createAsyncThunk(
+  actionTypes.DELETE_USER,
+  async (id) => {
+    return await UserService.deleteUsers(
+      {id});
+  }
+);

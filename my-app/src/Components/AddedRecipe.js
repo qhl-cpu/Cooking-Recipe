@@ -5,7 +5,6 @@ import RecipePopUp from './RecipePopUp';
 
 export default function AddedRecipe({ recipe }) {
   const [buttonPopup, setButtonPopup] = useState(false);
-  console.log(JSON.stringify(recipe))
   if (recipe.title === '') {
     return;
   }
