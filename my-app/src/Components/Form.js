@@ -5,6 +5,8 @@ import PreLoaded from '../json/preloaded.json'
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from '../actions/index.js'
 import RecipePopUp from './RecipePopUp';
+import { addUserAsync } from '../reducers/users/thunks';
+import axios from 'axios';
 
 function newRecipe(title, ingredient, instruction, cookingTime) {
   return {
@@ -48,14 +50,28 @@ export default function Form() {
     complete: PreLoaded[0].complete
   }
 
+  const axios = require('axios').default;
+
   function handleSubmit(e) {
     e.preventDefault()
-    console.log(title)
-    dispatch(increment(newRecipe(title, ingredient, instruction, cookingTime)))
+    console.log(cookingTime)
+    // dispatch(increment(newRecipe(title, ingredient, instruction, cookingTime)))
     const newList = list.concat({
       id: Date.now(), title: title, ingredient: ingredient,
       instruction: instruction, cookingTime: cookingTime
     });
+    // axios.post('/users', {
+    //   firstName: 'Fred',
+    //   lastName: 'Flintstone'
+    // })
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+
+    dispatch(addUserAsync({title,ingredient,instruction,cookingTime}))
     setList(newList);
     // axios.post('https://jsonplaceholder.typicode.com/posts', {title:title,
     // ingredient:ingredient,instruction:instruction,cookingTime:cookingTime})
