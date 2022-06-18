@@ -24,7 +24,8 @@
   margin-right: auto;
   display:flex;
   justify-content: center;
-  max-width: 50%;
+  flex-direction: column;
+  max-width: 500px;
 }
 #deletePreRecipeButton{
   width:0px;
@@ -32,7 +33,18 @@
 }
 #deleteRecipeButton{
   margin-left: 10px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   width:100px;
   height:40px;
+}
+#addedRecipe {
+  margin-left: auto;
+  margin-right: auto;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+}
+#deleteRecipeButton-div{
+  display:flex;
+  justify-content: center;
 }

@@ -2,7 +2,7 @@ import "../css/form.css"
 import React, { useState, useEffect } from "react";
 import AddedRecipe from './AddedRecipe'
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserAsync, getUsersAsync,deleteUserAsync } from '../reducers/users/thunks';
+import { addUserAsync, getUsersAsync, deleteUserAsync } from '../reducers/users/thunks';
 
 function newRecipe(title, ingredient, instruction, cookingTime) {
   return {
@@ -60,7 +60,7 @@ export default function Form() {
   function deleteRecipe(recipe) {
     const id = recipe.id;
     console.log(id);
-    dispatch(deleteUserAsync({id}));
+    dispatch(deleteUserAsync({ id }));
     // .then(dispatch(getUsersAsync()));
     // window.location.reload(false);
   }
@@ -110,16 +110,20 @@ export default function Form() {
           onClick={clearAllRecipes}>Clear All Recipes</button>
       </div>
 
-      {users.map((user) => {
-        return (
-          <div key={user.id} id="addedRecipe-div">
-            <AddedRecipe key={user.id} recipe={user} />
-            <button type="button" id="deleteRecipeButton"
-              onClick={() => deleteRecipe(user)}>Delete Recipe</button>
-          </div>);
+      <div id="addedRecipe">
+        {users.map((user) => {
+          return (
+            <div key={user.id} id="addedRecipe-div">
+              <AddedRecipe key={user.id} recipe={user} />
+              <div id="deleteRecipeButton-div">
+                <button type="button" id="deleteRecipeButton"
+                  onClick={() => deleteRecipe(user)}>Delete Recipe</button>
+              </div>
+              <br/>
+            </div>);
 
-      })}
-
+        })}
+      </div>
     </div>
   );
 }
