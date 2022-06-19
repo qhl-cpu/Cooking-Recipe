@@ -1,8 +1,8 @@
 import "../css/form.css"
 import React, { useState, useEffect } from "react";
-import AddedRecipe from './AddedRecipe'
+import AddedRecipe from './AddedRecipe';
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserAsync, getUsersAsync, deleteUserAsync } from '../reducers/users/thunks';
+import { addUserAsync, getUsersAsync, deleteUserAsync,deleteAllUserAsync } from '../reducers/users/thunks';
 
 function newRecipe(title, ingredient, instruction, cookingTime) {
   return {
@@ -29,9 +29,11 @@ export default function Form() {
     dispatch(getUsersAsync());
   }, []);
 
-  useEffect(() => {
-    dispatch(deleteUserAsync());
-  }, [users]);
+  // useEffect(() => {
+  //   dispatch(deleteUserAsync());
+  //   dispatch(deleteAllUserAsync());
+  // }, [users]);
+  
   // useEffect(() => {
   //   const storedList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
   //   if (storedList)
@@ -52,23 +54,15 @@ export default function Form() {
   }
 
   function clearAllRecipes() {
-    const newList = list.filter(item => item.complete);
-    setList(newList);
+    dispatch(deleteAllUserAsync());
     //localStorage.clear();
   }
 
   function deleteRecipe(recipe) {
     const id = recipe.id;
-    console.log(id);
     dispatch(deleteUserAsync({ id }));
     // .then(dispatch(getUsersAsync()));
     // window.location.reload(false);
-  }
-
-  function deletePreloadedRecipe(recipe) {
-    const newList = list.filter(item => item.id !== recipe.id);
-    setList(newList);
-    // localStorage.removeItem("recipeWeb.recipes");
   }
 
   return (
@@ -119,7 +113,7 @@ export default function Form() {
                 <button type="button" id="deleteRecipeButton"
                   onClick={() => deleteRecipe(user)}>Delete Recipe</button>
               </div>
-              <br/>
+              <br />
             </div>);
 
         })}

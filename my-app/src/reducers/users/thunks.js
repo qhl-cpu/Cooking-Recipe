@@ -19,12 +19,22 @@ export const addUserAsync = createAsyncThunk(
 
 export const deleteUserAsync = createAsyncThunk(
   actionTypes.DELETE_USER,
-  // async (id) => {
-  //   return await fetch(
-  //     'localhost:3001/users/' + JSON.stringify(id.id).replaceAll("\"", ""));
-  // }
   async ({id}) => {
-    return await UserService.deleteUsers(
-      {id});
+    return await UserService.deleteUsers({id});
+  }
+);
+
+export const deleteAllUserAsync = createAsyncThunk(
+  actionTypes.DELETE_ALL_USER,
+  async () => {
+    return await UserService.deleteAllUsers();
+  }
+);
+
+export const editUserAsync = createAsyncThunk(
+  actionTypes.EDIT_USER,
+  async ({id,title,ingredient,instruction,cookingTime}) => {
+    return await UserService.editUsers(
+      {id,title,ingredient,instruction,cookingTime});
   }
 );

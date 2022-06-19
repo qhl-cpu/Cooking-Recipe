@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
-import { addUserAsync, deleteUserAsync, getUsersAsync } from './thunks';
+import { addUserAsync, deleteUserAsync,deleteAllUserAsync, getUsersAsync,editUserAsync } from './thunks';
 
 const INITIAL_STATE = {
   list: [],
@@ -44,14 +44,34 @@ const usersSlice = createSlice({
         state.error = null;
       })
       .addCase(deleteUserAsync.fulfilled, (state, action) => {
-        console.log(JSON.stringify(action.payload))
         state.addUser = REQUEST_STATE.FULFILLED;
         state.list = action.payload;
-        
-        console.log(JSON.stringify(action.payload))
-        console.log(JSON.stringify(state.list))
       })
       .addCase(deleteUserAsync.rejected, (state, action) => {
+        state.addUser = REQUEST_STATE.REJECTED;
+        state.error = action.error;
+      })
+      .addCase(deleteAllUserAsync.pending, (state, action) => {
+        state.addUser = REQUEST_STATE.PENDING;
+        state.error = null;
+      })
+      .addCase(deleteAllUserAsync.fulfilled, (state, action) => {
+        state.addUser = REQUEST_STATE.FULFILLED;
+        state.list = action.payload;
+      })
+      .addCase(deleteAllUserAsync.rejected, (state, action) => {
+        state.addUser = REQUEST_STATE.REJECTED;
+        state.error = action.error;
+      })
+      .addCase(editUserAsync.pending, (state, action) => {
+        state.addUser = REQUEST_STATE.PENDING;
+        state.error = null;
+      })
+      .addCase(editUserAsync.fulfilled, (state, action) => {
+        state.addUser = REQUEST_STATE.FULFILLED;
+        state.list = action.payload;
+      })
+      .addCase(editUserAsync.rejected, (state, action) => {
         state.addUser = REQUEST_STATE.REJECTED;
         state.error = action.error;
       })
