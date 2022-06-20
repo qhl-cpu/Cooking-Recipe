@@ -17,7 +17,9 @@ export default function RecipePopUp(props) {
   }
   function closePopUp() {
     props.setTrigger(false);
+    if (addReview) {
     setaddReview(!addReview);
+    }
   }
 
   return (props.trigger) ? (
