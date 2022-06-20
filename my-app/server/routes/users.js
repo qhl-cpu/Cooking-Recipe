@@ -41,7 +41,7 @@ router.delete('/:id', function (req, res) {
   const deleted = users.find(user => user.id === id);
   if (deleted) {
     users = users.filter(user => user.id !== id);
-    return res.send(users);
+    return res.send(deleted);
   }
   else {
     return res.status(404).json({ message: 'recipe you are looking for does not exist' });

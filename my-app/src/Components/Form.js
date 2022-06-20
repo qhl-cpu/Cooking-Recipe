@@ -32,7 +32,6 @@ export default function Form() {
   useEffect(() => {
     dispatch(getUsersAsync());
     dispatch(getInitialReviewsAsync())
-    .then(console.log(reviews));
   }, []);
 
   // useEffect(() => {

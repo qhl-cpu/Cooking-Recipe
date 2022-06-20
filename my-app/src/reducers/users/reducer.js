@@ -48,7 +48,7 @@ const usersSlice = createSlice({
       })
       .addCase(deleteUserAsync.fulfilled, (state, action) => {
         state.addUser = REQUEST_STATE.FULFILLED;
-        state.list = action.payload;
+        state.list = state.list.filter(user => user.id !== action.payload.id);
       })
       .addCase(deleteUserAsync.rejected, (state, action) => {
         state.addUser = REQUEST_STATE.REJECTED;
