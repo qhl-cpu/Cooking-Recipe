@@ -52,3 +52,11 @@ export const getReviewsAsync = createAsyncThunk(
     return await UserService.getReviews({id});
   }
 );
+
+export const addReviewAsync = createAsyncThunk(
+  actionTypes.ADD_REVIEW,
+  async ({id,review}) => {
+    return await UserService.addReview(
+      {id,review});
+  }
+);

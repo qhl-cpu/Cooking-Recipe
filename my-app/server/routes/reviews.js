@@ -31,6 +31,17 @@ router.get('/:id', function (req, res, next) {
     }
 });
 
+router.post('/', function (req, res, next) {
+    if (!req.body.review ) {
+      return res.status(400).send({ message: 'review must have a content!' })
+    }
+    const review = {
+      id: req.body.id, review: req.body.review
+    };
+    reviews.push(review);
+    return res.send(review);
+  });
+
 
 
 module.exports = router;

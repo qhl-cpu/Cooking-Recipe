@@ -5,6 +5,7 @@ export const actionTypes = {
     DELETE_ALL_USER: 'users/deleteAllUser',
     EDIT_USER: 'users/editUser',
     GET_REVIEWS: 'reviews/getReviews',
-    GET_INIT_REVIEWS: 'reviews/getInitReviews'
+    GET_INIT_REVIEWS: 'reviews/getInitReviews',
+    ADD_REVIEW: 'reviews/addReview'
   };
   

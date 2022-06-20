@@ -1,8 +1,24 @@
 import '../css/recipePopUp.css'
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import {addReviewAsync} from '../reducers/users/thunks';
+const { v4: uuid } = require('uuid');
 
 
 export default function RecipePopUp(props) {
+  const [addReview, setaddReview] = useState(false);
+  const [review, setReview] = useState('')
+  const dispatch = useDispatch()
+  const reviews = useSelector(state => state.reviews.reviews);
+
+  function handleSubmit() {
+    const id = props.id;
+    dispatch(addReviewAsync({id,review}));
+  }
+  function closePopUp() {
+    props.setTrigger(false);
+    setaddReview(!addReview);
+  }
 
   return (props.trigger) ? (
     <div className='popUp'>
@@ -11,9 +27,9 @@ export default function RecipePopUp(props) {
         <h3>Reviews: </h3>
         <div id="reviews-div">
           {props.reviews.map((review) => {
-            if (review.id+'' === props.id) {
+            if (review.id + '' === props.id) {
               return (
-                <div key={review.id} id="addedRecipe-div">
+                <div key={uuid()} id="addedRecipe-div">
                   <p>{review.review}</p>
                 </div>
               )
@@ -21,9 +37,26 @@ export default function RecipePopUp(props) {
               return (null)
             }
           })}
+          <div>
+            <button className={(addReview ? "disableAddReviewButton" : "showAddReviewButton")}
+            onClick={() => setaddReview(!addReview)}>Add Review</button>
+            <button className={(addReview ? "showCloseReviewButton" : "disableCloseReviewButton")} 
+            onClick={() => setaddReview(!addReview)}>Close Review</button>
+            <form id="reviewForm" onSubmit={handleSubmit}>
+              <div className={(addReview ? "showReview" : "disableReview")}>
+                <label htmlFor="reviews">Write your reviews here</label>
+                <textarea className='reviewTextArea' onChange={e => setReview(e.target.value)}
+                  type="text" name="reviews" id="reviews" placeholder="title goes here" required />
+              </div>
+            </form>
+            <button className={(addReview ? "showSubmitReviewButton" : "disableSubmitReviewButton")} 
+            onClick={() => handleSubmit()}>Submit Review</button>
+            
+          </div>
         </div>
+
         <button className='close-btn'
-          onClick={() => props.setTrigger(false)}>close</button>
+          onClick={() => closePopUp()}>close</button>
       </div>
     </div>
   ) : "";
