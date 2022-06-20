@@ -3,14 +3,14 @@ const router = express.Router();
 const { v4: uuid } = require('uuid');
 let users = [
   {
-    id: uuid(), RecipeTitle: 'scrambled eggs with tomatoes',
+    id: '1', RecipeTitle: 'scrambled eggs with tomatoes',
     Ingredients: '2eggs, 1 tomato, salt',
     Instructions: 'fry the tomatoes and then add eggs',
     EstimatedCookingTime: 15,
     complete: false
   },
   {
-    id: uuid(), RecipeTitle: 'Garlic Asparagus with Lime',
+    id: '2', RecipeTitle: 'Garlic Asparagus with Lime',
     Ingredients: 'Asparagus, Garlic, Lime',
     Instructions: 'Stir in garlic and shallots, and cook for 1 to 2 minutes. Stir in asparagus spears; cook until tender',
     EstimatedCookingTime: 10,

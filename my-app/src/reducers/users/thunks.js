@@ -38,3 +38,17 @@ export const editUserAsync = createAsyncThunk(
       {id,title,ingredient,instruction,cookingTime});
   }
 );
+
+export const getInitialReviewsAsync = createAsyncThunk(
+  actionTypes.GET_INIT_REVIEWS,
+  async () => {
+    return await UserService.getInitialReviews();
+  }
+);
+
+export const getReviewsAsync = createAsyncThunk(
+  actionTypes.GET_REVIEWS,
+  async ({id}) => {
+    return await UserService.getReviews({id});
+  }
+);

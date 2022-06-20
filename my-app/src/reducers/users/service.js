@@ -57,8 +57,6 @@ const deleteAllUsers = async () => {
 
 const editUsers = async (recipeCard) => {
   const id = {id: recipeCard.id}
-  console.log(recipeCard.id)
-  console.log(JSON.stringify(id).replaceAll("\"", ""))
   const response = await fetch('http://localhost:3001/users/'+JSON.stringify(id).replaceAll("\"", ""), {
     method: 'PATCH',
     headers: {
@@ -76,10 +74,37 @@ const editUsers = async (recipeCard) => {
   return data;
 };
 
+const getInitialReviews = async () => {
+  const response = await fetch('http://localhost:3001/reviews', {
+    method: 'GET'
+  });
+  return response.json();
+};
+
+const getReviews = async (id) => {
+  const response = await fetch('http://localhost:3001/reviews/'+JSON.stringify(id).replaceAll("\"", ""), {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(id)
+  });
+  
+  const data = await response.json();
+  if (!response.ok) {
+    const errorMsg = data?.message;
+    throw new Error(errorMsg)
+  }
+
+  return data;
+};
+
 export default {
   addUser,
   getUsers,
   deleteUsers,
   deleteAllUsers,
-  editUsers
+  editUsers,
+  getInitialReviews,
+  getReviews
 };

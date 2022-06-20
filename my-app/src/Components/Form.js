@@ -2,7 +2,10 @@ import "../css/form.css"
 import React, { useState, useEffect } from "react";
 import AddedRecipe from './AddedRecipe';
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserAsync, getUsersAsync, deleteUserAsync,deleteAllUserAsync } from '../reducers/users/thunks';
+import {
+  addUserAsync, getUsersAsync, deleteUserAsync,
+  getReviewsAsync, deleteAllUserAsync, getInitialReviewsAsync
+} from '../reducers/users/thunks';
 
 function newRecipe(title, ingredient, instruction, cookingTime) {
   return {
@@ -24,16 +27,19 @@ export default function Form() {
   // const LOCAL_STORAGE_KEY = "recipeWeb.recipes"
 
   const users = useSelector(state => state.users.list);
+  const reviews = useSelector(state => state.reviews.reviews);
 
   useEffect(() => {
     dispatch(getUsersAsync());
+    dispatch(getInitialReviewsAsync())
+    .then(console.log(reviews));
   }, []);
 
   // useEffect(() => {
   //   dispatch(deleteUserAsync());
   //   dispatch(deleteAllUserAsync());
   // }, [users]);
-  
+
   // useEffect(() => {
   //   const storedList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
   //   if (storedList)
@@ -60,6 +66,8 @@ export default function Form() {
 
   function deleteRecipe(recipe) {
     const id = recipe.id;
+    // dispatch(getReviewsAsync({id}));
+    // console.log(reviews)
     dispatch(deleteUserAsync({ id }));
     // .then(dispatch(getUsersAsync()));
     // window.location.reload(false);
@@ -118,6 +126,15 @@ export default function Form() {
 
         })}
       </div>
+      {/* <div id="addedRecipe">
+        {reviews.map((review) => {
+          return (
+            <div key={review.id} id="addedRecipe-div">
+            <p>{review.review}</p>
+            </div>
+          )
+          })}
+      </div> */}
     </div>
   );
 }

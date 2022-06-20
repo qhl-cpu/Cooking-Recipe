@@ -3,6 +3,8 @@ export const actionTypes = {
     ADD_USER: 'users/addUser',
     DELETE_USER: 'users/deleteUser',
     DELETE_ALL_USER: 'users/deleteAllUser',
-    EDIT_USER: 'users/editUser'
+    EDIT_USER: 'users/editUser',
+    GET_REVIEWS: 'reviews/getReviews',
+    GET_INIT_REVIEWS: 'reviews/getInitReviews'
   };
   
