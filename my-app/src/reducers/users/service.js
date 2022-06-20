@@ -117,6 +117,25 @@ const addReview = async (recipeCard) => {
   return data;
 };
 
+const updateReviews = async (recipeCard) => {
+  const id = {id: recipeCard.id}
+  const response = await fetch('http://localhost:3001/reviews/'+JSON.stringify(id).replaceAll("\"", ""), {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(recipeCard)
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    const errorMsg = data?.message;
+    throw new Error(errorMsg)
+  }
+
+  return data;
+};
+
 export default {
   addUser,
   getUsers,
@@ -125,5 +144,6 @@ export default {
   editUsers,
   getInitialReviews,
   getReviews,
-  addReview
+  addReview,
+  updateReviews
 };
