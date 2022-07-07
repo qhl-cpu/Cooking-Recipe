@@ -66,7 +66,6 @@ export default function Form() {
   function deleteRecipe(recipe) {
     const id = recipe.id;
     // dispatch(getReviewsAsync({id}));
-    // console.log(reviews)
     dispatch(deleteUserAsync({ id }));
     // .then(dispatch(getUsersAsync()));
     // window.location.reload(false);
