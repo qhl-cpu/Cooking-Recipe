@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { v4: uuid } = require('uuid');
+
+const recipe = require('../services/recipeService');
+
 let users = [
   {
     id: '1', RecipeTitle: 'scrambled eggs with tomatoes',
@@ -18,9 +21,20 @@ let users = [
   }
 ];
 
-router.get('/', function (req, res, next) {
-  return res.send(users);
+router.get('/', (req, res) => {
+  recipe.find({}, (err, found) => {
+    if (err) {
+      console.log(err);
+      res.send("Some error occured!")
+    }
+    console.log(found)
+    res.send(found);
+  })
 });
+
+// router.get('/', function (req, res, next) {
+//   return res.send(users);
+// });
 
 router.post('/', function (req, res, next) {
   if (!req.body.title || !req.body.ingredient ||
