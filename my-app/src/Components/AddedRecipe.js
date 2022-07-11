@@ -32,12 +32,12 @@ export default function AddedRecipe({ recipe }) {
           {"EstimatedCookingTime(mins): " + recipe.EstimatedCookingTime} <br />
           <div id="openEditButton-div">
           <button type="button" id="openRecipeButton"
-            onClick={() => fetchReviews(recipe.id)}>Open Recipe</button>
+            onClick={() => fetchReviews(recipe._id)}>Open Recipe</button>
 
           <button type="button" id="editRecipeButton"
             onClick={() => seteditRecipe(true)}>Edit Recipe</button>
             <RecipePopUp trigger={buttonPopup} setTrigger={setButtonPopup}
-              id={recipe.id} instruction={recipe.Instructions} reviews = {reviews}>
+              id={recipe._id} instruction={recipe.Instructions} reviews = {reviews}>
             </RecipePopUp>
 
             <EditRecipe trigger={editRecipe} setTrigger={seteditRecipe}

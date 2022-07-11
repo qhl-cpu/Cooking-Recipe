@@ -131,7 +131,7 @@ router.patch('/:id', function (req, res) {
     return res.status(400).send({ message: 'recipe must have a title/ingredient/instruction!' })
   }
   const newRecipe = {
-    id: req.body._id, RecipeTitle: req.body.title,
+    id: req.body.id, RecipeTitle: req.body.title,
     Ingredients: req.body.ingredient,
     Instructions: req.body.instruction,
     EstimatedCookingTime: req.body.cookingTime,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../css/recipePopUp.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { editUserAsync} from '../reducers/users/thunks';
+import { editUserAsync,getUsersAsync} from '../reducers/users/thunks';
 
 
 
@@ -16,8 +16,9 @@ export default function EditRecipe(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const id = props.recipe.id;
-    dispatch(editUserAsync({ id, title, ingredient, instruction, cookingTime }));
+    const id = props.recipe._id;
+    dispatch(editUserAsync({ id, title, ingredient, instruction, cookingTime }))
+    .then(()=>{dispatch(getUsersAsync())});
     props.setTrigger(false)
   }
 
