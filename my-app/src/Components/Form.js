@@ -64,9 +64,10 @@ export default function Form() {
   }
 
   function deleteRecipe(recipe) {
-    const id = recipe.id;
+    const id = recipe._id;
     // dispatch(getReviewsAsync({id}));
-    dispatch(deleteUserAsync({ id }));
+    dispatch(deleteUserAsync({ id }))
+    .then(()=>{dispatch(getUsersAsync())});
     // .then(dispatch(getUsersAsync()));
     // window.location.reload(false);
   }

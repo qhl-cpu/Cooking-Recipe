@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const recipeSchema = new mongoose.Schema({
   RecipeTitle: {
-    type: String 
+    type: String
   },
   Ingredients: {
     type: String
@@ -22,14 +22,101 @@ const Recipe = mongoose.model('Recipe', recipeSchema);
  * 
  * @returns {Array} a list of all recipes stored in BD
  */
- const getRecipes = async () => {
-	try {
-		return Recipe.find({});
-	} catch (error) {
-		throw { type: 'DB', message: error };
-	}
+const getRecipes = async () => {
+  try {
+    const recipe = await Recipe.find({});
+    return recipe;
+  } catch (error) {
+    throw { type: 'DB', message: error };
+  }
 };
 
+/**
+ * Add an recipe to the database
+ * 
+ * @param {object} recipe 
+ * 
+ * @returns {object} recipe has been added to the db
+ * @throws {object}} error - type and messages
+ */
+const addRecipe = async (recipe) => {
+  const newRecipe = new Recipe(recipe);
+
+  // validation https://mongoosejs.com/docs/api.html#document_Document-validateSync
+  const validationError = newRecipe.validateSync();
+  if (validationError) {
+    throw { type: 'validation', message: validationError };
+  }
+  try {
+    await newRecipe.save();
+    return newRecipe;
+  } catch (error) {
+    throw ({ type: 'DB', message: error })
+  }
+}
+
+/**
+ * delete an recipe from the database
+ * 
+ * @param {object} recipe 
+ * 
+ * @returns {object} recipe has been deleted from the db
+ * @throws {object}} error - type and messages
+ */
+ const deleteRecipe = async (id) => {
+  // const newRecipe = new Recipe(recipe);
+
+  // validation https://mongoosejs.com/docs/api.html#document_Document-validateSync
+  // const validationError = newRecipe.validateSync();
+  // if (validationError) {
+  //   throw { type: 'validation', message: validationError };
+  // }
+  try {
+    const recipe = await Recipe.findByIdAndDelete(id);
+    return recipe;
+    // await newRecipe.save();
+    // return newRecipe;
+  } catch (error) {
+    throw ({ type: 'DB', message: error })
+  }
+}
+
+/**
+ * update an recipe from the database
+ * 
+ * @param {object} recipe 
+ * 
+ * @returns {object} recipe has been updated from the db
+ * @throws {object}} error - type and messages
+ */
+ const updateRecipe = async (newRecipe) => {
+  // const newRecipe = new Recipe(recipe);
+
+  // // validation https://mongoosejs.com/docs/api.html#document_Document-validateSync
+  // const validationError = newRecipe.validateSync();
+  // if (validationError) {
+  //   throw { type: 'validation', message: validationError };
+  // }
+  try {
+    await Recipe.findById(newRecipe.id)
+    .then(recipe => {
+      recipe.RecipeTitle = newRecipe.RecipeTitle;
+      recipe.Ingredients = newRecipe.Ingredients;
+      recipe.Instructions = newRecipe.Instructions;
+      recipe.EstimatedCookingTime = newRecipe.EstimatedCookingTime;
+      console.log("hahah")
+      recipe.save()
+      .then(()=>console.log("success"))
+      .catch(err=>console.log("error"))
+      
+    })
+    return Recipe.find({});
+    // await newRecipe.save();
+    // return newRecipe;
+  } catch (error) {
+    throw ({ type: 'DB', message: error })
+  }
+}
 
 const initialRecipe1 = new Recipe(
   {
@@ -53,4 +140,7 @@ const initialRecipe2 = new Recipe(
 module.exports = {
   Recipe,
   getRecipes,
+  addRecipe,
+  deleteRecipe,
+  updateRecipe
 }

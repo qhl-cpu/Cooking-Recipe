@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuid } = require('uuid');
 
-const service  = require('../services/recipeService');
+const service = require('../services/recipeService');
 
 let users = [
   {
@@ -36,14 +36,14 @@ let users = [
  * @status 500 SERVER ERROR
  * @error message
  */
- router.get('/', function (req, res) {
-	service.getRecipes()
-		.then((recipes) => {
-			return res.status(200).send(recipes);
-		})
-		.catch((error) => {
-			return res.status(500).send({ error: error.message });
-		})
+router.get('/', function (req, res) {
+  service.getRecipes()
+    .then((recipes) => {
+      return res.status(200).send(recipes);
+    })
+    .catch((error) => {
+      return res.status(500).send({ error: error.message });
+    })
 });
 
 // router.get('/', function (req, res, next) {
@@ -60,21 +60,65 @@ router.post('/', function (req, res, next) {
     Ingredients: req.body.ingredient, Instructions: req.body.instruction,
     EstimatedCookingTime: req.body.cookingTime, complete: req.body.complete
   };
-  users.push(user);
-  return res.send(user);
+  // users.push(user);
+
+  service.addRecipe(user)
+    .then((recipeAdded) => {
+      return res.status(200).send(recipeAdded);
+    })
+    .catch((error) => {
+      if (error.type === 'validation') {
+        return res.status(400).send({ error: error.message });
+      } else {
+        return res.status(500).send({ error: error.message });
+      }
+    })
+
+  // return res.send(user);
 });
+
+// router.post('/', function (req, res, next) {
+//   if (!req.body.title || !req.body.ingredient ||
+//     !req.body.instruction || !req.body.cookingTime) {
+//     return res.status(400).send({ message: 'recipe must have a title/ingredient/instruction!' })
+//   }
+//   const user = {
+//     id: uuid(), RecipeTitle: req.body.title,
+//     Ingredients: req.body.ingredient, Instructions: req.body.instruction,
+//     EstimatedCookingTime: req.body.cookingTime, complete: req.body.complete
+//   };
+//   users.push(user);
+//   return res.send(user);
+// });
 
 router.delete('/:id', function (req, res) {
   const id = JSON.stringify(req.body.id).replaceAll("\"", "")
-  const deleted = users.find(user => user.id === id);
-  if (deleted) {
-    users = users.filter(user => user.id !== id);
-    return res.send(deleted);
-  }
-  else {
-    return res.status(404).json({ message: 'recipe you are looking for does not exist' });
-  }
+  service.deleteRecipe(id)
+    .then(service.getRecipes()
+    .then((recipes) => {
+      return res.status(200).send(recipes);
+    }))
+    
+    .catch((error) => {
+      if (error.type === 'validation') {
+        return res.status(400).send({ error: error.message });
+      } else {
+        return res.status(500).send({ error: error.message });
+      }
+    })
 });
+
+// router.delete('/:id', function (req, res) {
+//   const id = JSON.stringify(req.body.id).replaceAll("\"", "")
+//   const deleted = users.find(user => user.id === id);
+//   if (deleted) {
+//     users = users.filter(user => user.id !== id);
+//     return res.send(deleted);
+//   }
+//   else {
+//     return res.status(404).json({ message: 'recipe you are looking for does not exist' });
+//   }
+// });
 
 router.delete('/', function (req, res, next) {
   users = [];
@@ -86,26 +130,71 @@ router.patch('/:id', function (req, res) {
     !req.body.instruction || !req.body.cookingTime) {
     return res.status(400).send({ message: 'recipe must have a title/ingredient/instruction!' })
   }
-  const id = JSON.stringify(req.body.id).replaceAll("\"", "")
-  const edited = users.find(user => user.id === id);
-  if (edited) {
-    const newRecipe = {
-      id: id, RecipeTitle: req.body.title,
-      Ingredients: req.body.ingredient,
-      Instructions: req.body.instruction,
-      EstimatedCookingTime: req.body.cookingTime,
-      complete: false
-    }
-    users.forEach((element, index) => {
-      if (element.id === id) {
-        users[index] = newRecipe;
+  const newRecipe = {
+    id: req.body._id, RecipeTitle: req.body.title,
+    Ingredients: req.body.ingredient,
+    Instructions: req.body.instruction,
+    EstimatedCookingTime: req.body.cookingTime,
+    complete: false
+  }
+  service.updateRecipe(newRecipe)
+    .then((recipeUpdated) => {
+      return res.status(200).send(recipeUpdated);
+    })
+    .catch((error) => {
+      if (error.type === 'validation') {
+        return res.status(400).send({ error: error.message });
+      } else {
+        return res.status(500).send({ error: error.message });
       }
-    });
-    return res.send(users);
-  }
-  else {
-    return res.status(404).json({ message: 'recipe you are looking for does not exist' });
-  }
+    })
+  // const id = JSON.stringify(req.body.id).replaceAll("\"", "")
+  // const edited = users.find(user => user.id === id);
+  // if (edited) {
+  //   const newRecipe = {
+  //     id: id, RecipeTitle: req.body.title,
+  //     Ingredients: req.body.ingredient,
+  //     Instructions: req.body.instruction,
+  //     EstimatedCookingTime: req.body.cookingTime,
+  //     complete: false
+  //   }
+  //   users.forEach((element, index) => {
+  //     if (element.id === id) {
+  //       users[index] = newRecipe;
+  //     }
+  //   });
+  //   return res.send(users);
+  // }
+  // else {
+  //   return res.status(404).json({ message: 'recipe you are looking for does not exist' });
+  // }
 });
+
+// router.patch('/:id', function (req, res) {
+//   if (!req.body.title || !req.body.ingredient ||
+//     !req.body.instruction || !req.body.cookingTime) {
+//     return res.status(400).send({ message: 'recipe must have a title/ingredient/instruction!' })
+//   }
+//   const id = JSON.stringify(req.body.id).replaceAll("\"", "")
+//   const edited = users.find(user => user.id === id);
+//   if (edited) {
+//     const newRecipe = {
+//       id: id, RecipeTitle: req.body.title,
+//       Ingredients: req.body.ingredient,
+//       Instructions: req.body.instruction,
+//       EstimatedCookingTime: req.body.cookingTime,
+//       complete: false
+//     }
+//     users.forEach((element, index) => {
+//       if (element.id === id) {
+//         users[index] = newRecipe;
+//       }
+//     });
+//     return res.send(users);
+//   }
+//   else {
+//     return res.status(404).json({ message: 'recipe you are looking for does not exist' });
+//   }
+// });
 
 module.exports = router;
