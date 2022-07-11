@@ -17,6 +17,20 @@ const recipeSchema = new mongoose.Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
+/**
+ * Get all recipes from database
+ * 
+ * @returns {Array} a list of all recipes stored in BD
+ */
+ const getRecipes = async () => {
+	try {
+		return Recipe.find({});
+	} catch (error) {
+		throw { type: 'DB', message: error };
+	}
+};
+
+
 const initialRecipe1 = new Recipe(
   {
     id: '1', RecipeTitle: 'scrambled eggs with tomatoes',
@@ -33,5 +47,10 @@ const initialRecipe2 = new Recipe(
     EstimatedCookingTime: 10
   }
 );
-initialRecipe1.save().then(() => console.log("first entry added"));
-initialRecipe2.save().then(() => console.log("second entry added"));
+// initialRecipe1.save().then(() => console.log("first entry added"));
+// initialRecipe2.save().then(() => console.log("second entry added"));
+
+module.exports = {
+  Recipe,
+  getRecipes,
+}

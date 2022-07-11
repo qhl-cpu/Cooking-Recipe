@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuid } = require('uuid');
 
-const recipe = require('../services/recipeService');
+const service  = require('../services/recipeService');
 
 let users = [
   {
@@ -21,15 +21,29 @@ let users = [
   }
 ];
 
-router.get('/', (req, res) => {
-  recipe.find({}, (err, found) => {
-    if (err) {
-      console.log(err);
-      res.send("Some error occured!")
-    }
-    console.log(found)
-    res.send(found);
-  })
+/**
+ * Get all recipes
+ * 
+ * @verb GET
+ * @endpoint /recipes
+ * 
+ * Responses:
+ * Success:
+ * @status 200 OK
+ * @data recipes[]
+ * 
+ * Error:
+ * @status 500 SERVER ERROR
+ * @error message
+ */
+ router.get('/', function (req, res) {
+	service.getRecipes()
+		.then((recipes) => {
+			return res.status(200).send(recipes);
+		})
+		.catch((error) => {
+			return res.status(500).send({ error: error.message });
+		})
 });
 
 // router.get('/', function (req, res, next) {

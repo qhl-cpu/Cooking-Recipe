@@ -113,8 +113,8 @@ export default function Form() {
       <div id="addedRecipe">
         {users.map((user) => {
           return (
-            <div key={user.id} id="addedRecipe-div">
-              <AddedRecipe key={user.id} recipe={user} />
+            <div key={user._id} id="addedRecipe-div">
+              <AddedRecipe key={user._id} recipe={user} />
               <div id="deleteRecipeButton-div">
                 <button type="button" id="deleteRecipeButton"
                   onClick={() => deleteRecipe(user)}>Delete Recipe</button>
