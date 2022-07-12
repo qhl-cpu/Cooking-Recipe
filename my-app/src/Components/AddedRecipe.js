@@ -18,6 +18,9 @@ export default function AddedRecipe({ recipe }) {
 
   function fetchReviews(id) {
     //dispatch(getInitialReviewsAsync());
+    
+    console.log(id)
+    console.log(typeof(id))
     dispatch(getReviewsAsync({id}));
     setButtonPopup(true)
   }

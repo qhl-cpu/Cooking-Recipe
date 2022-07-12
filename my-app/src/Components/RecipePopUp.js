@@ -34,7 +34,7 @@ export default function RecipePopUp(props) {
         <h3>Reviews: </h3>
         <div id="reviews-div">
           {props.reviews.map((uniqueIdReview) => {
-            if (uniqueIdReview.id + '' === props.id) {
+            if (uniqueIdReview._id + '' === props.id) {
               return (
                 <div key={uuid()} id="addedRecipe-div">
                   {uniqueIdReview.review.map((reviewArray) => {
