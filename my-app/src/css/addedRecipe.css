@@ -11,7 +11,12 @@
     min-width: 54%;
     margin:auto;
   }
-#openRecipeButton {
-  width:100px;
+#openRecipeButton,#editRecipeButton {
+  width:px;
   height:40px;
+}
+#openEditButton-div {
+  display:flex;
+    justify-content: center;
+    flex-direction: column;
 }
