@@ -1,5 +1,8 @@
+const basicUrl = 'https://recipe-assignment5.herokuapp.com/';
+// const basicUrl = 'http://localhost:3001/';
+
 const addUser = async (recipeCard) => {
-  const response = await fetch('http://localhost:3001/users', {
+  const response = await fetch(basicUrl+'users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -17,14 +20,14 @@ const addUser = async (recipeCard) => {
 };
 
 const getUsers = async () => {
-  const response = await fetch('http://localhost:3001/users', {
+  const response = await fetch(basicUrl+'users', {
     method: 'GET'
   });
   return response.json();
 };
 
 const deleteUsers = async (id) => {
-  const response = await fetch('http://localhost:3001/users/'+JSON.stringify(id).replaceAll("\"", ""), {
+  const response = await fetch(basicUrl+'users/'+JSON.stringify(id).replaceAll("\"", ""), {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -42,7 +45,7 @@ const deleteUsers = async (id) => {
 };
 
 const deleteAllUsers = async () => {
-  const response = await fetch('http://localhost:3001/users/', {
+  const response = await fetch(basicUrl+'users/', {
     method: 'DELETE'
   });
 
@@ -57,7 +60,7 @@ const deleteAllUsers = async () => {
 
 const editUsers = async (recipeCard) => {
   const id = {id: recipeCard.id}
-  const response = await fetch('http://localhost:3001/users/'+JSON.stringify(id).replaceAll("\"", ""), {
+  const response = await fetch(basicUrl+'users/'+JSON.stringify(id).replaceAll("\"", ""), {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -75,14 +78,14 @@ const editUsers = async (recipeCard) => {
 };
 
 const getInitialReviews = async () => {
-  const response = await fetch('http://localhost:3001/reviews', {
+  const response = await fetch(basicUrl+'reviews', {
     method: 'GET'
   });
   return response.json();
 };
 
 const getReviews = async (id) => {
-  const response = await fetch('http://localhost:3001/reviews/'+JSON.stringify(id).replaceAll("\"", ""), {
+  const response = await fetch(basicUrl+'reviews/'+JSON.stringify(id).replaceAll("\"", ""), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -100,7 +103,7 @@ const getReviews = async (id) => {
 };
 
 const addReview = async (recipeCard) => {
-  const response = await fetch('http://localhost:3001/reviews', {
+  const response = await fetch(basicUrl+'reviews', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -119,7 +122,7 @@ const addReview = async (recipeCard) => {
 
 const updateReviews = async (recipeCard) => {
   const id = {id: recipeCard.id}
-  const response = await fetch('http://localhost:3001/reviews/'+JSON.stringify(id).replaceAll("\"", ""), {
+  const response = await fetch(basicUrl+'reviews/'+JSON.stringify(id).replaceAll("\"", ""), {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
