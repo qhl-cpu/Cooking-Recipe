@@ -89,7 +89,7 @@ export default function Form() {
           </div>
 
           <div>
-            <label htmlFor="Ingredients">Ingredients</label>
+            <label htmlFor="IngredientsX">Ingredients</label>
             <input onChange={e => setIngredient(e.target.value)}
               type="text" name="Ingredients" id="Ingredients" placeholder="Ingredients goes here" required />
           </div>
