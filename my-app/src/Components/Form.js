@@ -78,8 +78,9 @@ export default function Form() {
         <img src={require('../ArtResources/cooking-1.gif')} alt="this is a cooking gif" className="cookingGif" width="276" height="232" />
         <form id="recipeForm" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="RecipeTitle">Recipe title</label>
+            <label htmlFor="RecipeTitle">Recipe Title</label>
             <input onChange={(e) => setTitle(e.target.value)}
+
               type="text" name="Recipe Title" id="RecipeTitle" placeholder="title goes here" required />
           </div>
 
@@ -124,6 +125,7 @@ export default function Form() {
             </div>);
 
         })}
+
       </div>
       {/* <div id="addedRecipe">
         {reviews.map((review) => {
