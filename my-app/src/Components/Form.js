@@ -85,7 +85,7 @@ export default function Form() {
           <div>
             <label htmlFor="RecipeTitle">Recipe titleHAHA</label>
             <input onChange={e => setTitle(e.target.value)}
-              type="text" name="Recipe Title" id="RecipeTitle" placeholder="title goes here" required />
+              type="text" name="Recipe title" id="RecipeTitle" placeholder="title goes here" required />
           </div>
 
           <div>
