@@ -20,5 +20,26 @@
 .popUp-Inner .close-btn {
     position:absolute;
     top: 16px;
-    right: 16px;
+    right: 35px;
+}
+.disableReview {
+    display:none;
+}
+.disableAddReviewButton{
+    display:none;
+}
+.disableCloseReviewButton{
+    display:none;
+}
+.disableSubmitReviewButton{
+    display:none;
+}
+.showReview{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.reviewTextArea{
+    width: 50%;
+    height: 200px;
 }
