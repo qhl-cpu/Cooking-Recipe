@@ -81,7 +81,6 @@ export default function Form() {
             <label htmlFor="RecipeTitle">Recipe titleHAHA</label>
             <input onChange={e => setTitle(e.target.value)}
               type="text" name="Recipe title" id="RecipeTitle" placeholder="title goes here" required />
- parent of f1c67a6 (Revert "Assignment 4")
           </div>
 
           <div>
